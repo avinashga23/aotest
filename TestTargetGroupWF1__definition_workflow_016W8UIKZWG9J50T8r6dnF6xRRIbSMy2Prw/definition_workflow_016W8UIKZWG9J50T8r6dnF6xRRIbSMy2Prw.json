@@ -1,0 +1,340 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_016W8UIKZWG9J50T8r6dnF6xRRIbSMy2Prw",
+    "name": "Groups",
+    "title": "Groups",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "Bearer",
+          "scope": "input",
+          "name": "Token",
+          "type": "datatype.string",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_016W8UKJGBM7V1tVQDyb7nToEYzWpLgeElQ",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "is_atomic": false
+      },
+      "delete_workflow_instance": false,
+      "display_name": "Groups",
+      "favorite": false,
+      "target": {
+        "execute_on_target_group": true,
+        "target_group": {
+          "target_group_id": "target_group_016CMJOS6WXBA6WsqeUelXiMEJLg3nMCeBX",
+          "run_on_all_targets": false,
+          "selected_target_types": [
+            "terminal.unix_linux_endpoint",
+            "web-service.endpoint"
+          ],
+          "use_criteria": {
+            "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+            "conditions": [
+              {
+                "operator": "ne",
+                "left_operand": "$targetgroup.web-service endpoint.input.display_name$",
+                "right_operand": "avinash"
+              },
+              {
+                "operator": "gt",
+                "left_operand": "$targetgroup.web-service endpoint.input.port$",
+                "right_operand": 79
+              }
+            ]
+          }
+        }
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_016W8ULB5E8IO0xClT5DNbDLzGu9UKYFf5h",
+        "name": "HTTP Request",
+        "title": "HTTP Request",
+        "type": "web-service.http_request",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "allow_auto_redirect": true,
+          "continue_on_error_status_code": false,
+          "continue_on_failure": false,
+          "display_name": "HTTP Request",
+          "method": "GET",
+          "runtime_user": {
+            "override_target_runtime_user": false,
+            "target_default": true
+          },
+          "target": {
+            "override_workflow_target": true,
+            "override_workflow_target_group_criteria": false,
+            "target_id": "definition_target_015PJ2P5P5JSQ1yWsI0b1nOwcNCrSRdeRii",
+            "use_workflow_target_group": false
+          }
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_016W8ULM710US72nUYs7lNkcOsKlRhOnLZy",
+        "name": "HTTP Request",
+        "title": "Internal target",
+        "type": "web-service.http_request",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "allow_auto_redirect": true,
+          "content_type": "application/json",
+          "continue_on_error_status_code": false,
+          "continue_on_failure": false,
+          "custom_headers": [
+            {
+              "name": "Authorization",
+              "value": "$workflow.definition_workflow_016W8UIKZWG9J50T8r6dnF6xRRIbSMy2Prw.input.variable_workflow_016W8UKJGBM7V1tVQDyb7nToEYzWpLgeElQ$"
+            }
+          ],
+          "display_name": "Internal target",
+          "method": "GET",
+          "relative_url": "targets",
+          "runtime_user": {
+            "override_target_runtime_user": false,
+            "target_default": true
+          },
+          "target": {
+            "override_workflow_target": true,
+            "override_workflow_target_group_criteria": false,
+            "target_id": "definition_target_015BYI133FAY70x33jEwZ59TgqBIYLJ1J6j",
+            "use_workflow_target_group": false
+          }
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_016W8ULVTZ2MY3G4E3oI16omwFZtnz48UKG",
+        "name": "HTTP Request",
+        "title": "HTTP Request",
+        "type": "web-service.http_request",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "allow_auto_redirect": true,
+          "content_type": "application/json",
+          "continue_on_error_status_code": false,
+          "continue_on_failure": false,
+          "custom_headers": [
+            {
+              "name": "Authorization",
+              "value": "$workflow.definition_workflow_016W8UIKZWG9J50T8r6dnF6xRRIbSMy2Prw.input.variable_workflow_016W8UKJGBM7V1tVQDyb7nToEYzWpLgeElQ$"
+            }
+          ],
+          "display_name": "HTTP Request",
+          "method": "GET",
+          "relative_url": "targets",
+          "runtime_user": {
+            "override_target_runtime_user": false,
+            "target_default": true
+          },
+          "target": {
+            "override_workflow_target": false,
+            "override_workflow_target_group_criteria": false,
+            "use_workflow_target_group": true
+          }
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_016W8UM5W2AZ16JQ5HlaNmcBfGzostacqbw",
+        "name": "Execute Linux/Unix SSH Command",
+        "title": "Execute Linux/Unix SSH Command",
+        "type": "terminal.ssh_command",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "command": "ls",
+          "command_timeout": 60,
+          "continue_on_failure": false,
+          "display_name": "Execute Linux/Unix SSH Command",
+          "runtime_user": {
+            "override_target_runtime_user": false,
+            "target_default": true
+          },
+          "target": {
+            "override_workflow_target": false,
+            "override_workflow_target_group_criteria": false,
+            "use_workflow_target_group": true
+          }
+        },
+        "object_type": "definition_activity"
+      }
+    ],
+    "categories": [
+      "category_1BMfMXSnJMyt5Ihqi7rWJr5N8cf"
+    ]
+  },
+  "triggers": {
+    "triggerschedule_016W8UKOW6XRI0w0Bc9lfuhZTc0DwmXQw5b": {
+      "workflow_id": "definition_workflow_016W8UIKZWG9J50T8r6dnF6xRRIbSMy2Prw",
+      "name": "Trigger",
+      "title": "",
+      "lowercase_name": "schedule.trigger",
+      "type": "schedule",
+      "base_type": "trigger",
+      "ref_id": "schedule_015RCALKQR42F1N0hT7yCcIBLHkN55JzVRg",
+      "version": "1.0.0",
+      "disabled": false,
+      "unique_name": "triggerschedule_016W8UKOW6XRI0w0Bc9lfuhZTc0DwmXQw5b",
+      "object_type": "triggerschedule"
+    }
+  },
+  "schedules": {
+    "schedule_015RCALKQR42F1N0hT7yCcIBLHkN55JzVRg": {
+      "unique_name": "schedule_015RCALKQR42F1N0hT7yCcIBLHkN55JzVRg",
+      "name": "CA Schedule",
+      "type": "basic.schedule",
+      "base_type": "schedule",
+      "properties": {
+        "calendar": "calendar_recurring_1BMfMWvgiDhSjBQ7hTSyvz3NyVZ",
+        "timezone": "America/Chicago",
+        "starttime": "15:25",
+        "interval_hours": 0,
+        "interval_minutes": 0,
+        "number_of_times": 1,
+        "display_name": "CA Schedule",
+        "description": ""
+      },
+      "version": "1.0.0",
+      "object_type": "schedule"
+    }
+  },
+  "targets": {
+    "definition_target_015BYI133FAY70x33jEwZ59TgqBIYLJ1J6j": {
+      "unique_name": "definition_target_015BYI133FAY70x33jEwZ59TgqBIYLJ1J6j",
+      "name": "CA Internal",
+      "title": "CA Internal",
+      "type": "web-service.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "disable_certificate_validation": true,
+        "display_name": "CA Internal",
+        "host": "10.88.38.127",
+        "no_runtime_user": true,
+        "path": "/orch-ui/api/v1",
+        "port": 30091,
+        "protocol": "http"
+      }
+    },
+    "definition_target_015EJ2J0XVS0B3GBmrUsI6ocfwuqcOkPyFd": {
+      "unique_name": "definition_target_015EJ2J0XVS0B3GBmrUsI6ocfwuqcOkPyFd",
+      "name": "CA HTTP",
+      "title": "CA HTTP",
+      "type": "web-service.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "description": "TEST",
+        "disable_certificate_validation": true,
+        "display_name": "CA HTTP",
+        "host": "www.google.com",
+        "no_runtime_user": true,
+        "protocol": "https"
+      }
+    },
+    "definition_target_015NSGJ0I5FZN7bUJu8WdQkluy9WVbYcuyW": {
+      "unique_name": "definition_target_015NSGJ0I5FZN7bUJu8WdQkluy9WVbYcuyW",
+      "name": "lintar",
+      "title": "lintar",
+      "type": "terminal.unix_linux_endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "bash_shell": "/bin/bash",
+        "default_runtime_user_id": "definition_runtime_user_015NSGDB61GZT1XsXwkTY3TDCUwUjTnK9FO",
+        "display_name": "lintar",
+        "host": "10.88.38.110",
+        "port": 22
+      }
+    },
+    "definition_target_015PJ2P5P5JSQ1yWsI0b1nOwcNCrSRdeRii": {
+      "unique_name": "definition_target_015PJ2P5P5JSQ1yWsI0b1nOwcNCrSRdeRii",
+      "name": "CA HTTP",
+      "title": "CA HTTP",
+      "type": "web-service.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "disable_certificate_validation": false,
+        "display_name": "CA HTTP",
+        "host": "www.google.com",
+        "no_runtime_user": true,
+        "protocol": "https"
+      }
+    },
+    "definition_target_016CGE3FEVB7L3l2YvKKcix0pzFzB11JMvS": {
+      "unique_name": "definition_target_016CGE3FEVB7L3l2YvKKcix0pzFzB11JMvS",
+      "name": "CA UNIX",
+      "title": "CA UNIX",
+      "type": "terminal.unix_linux_endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "bash_shell": "/bin/bash",
+        "default_runtime_user_id": "definition_runtime_user_015NSGDB61GZT1XsXwkTY3TDCUwUjTnK9FO",
+        "display_name": "CA UNIX",
+        "host": "10.88.38.110",
+        "port": 22
+      }
+    }
+  },
+  "runtime_users": {
+    "definition_runtime_user_015NSGDB61GZT1XsXwkTY3TDCUwUjTnK9FO": {
+      "unique_name": "definition_runtime_user_015NSGDB61GZT1XsXwkTY3TDCUwUjTnK9FO",
+      "name": "linuser",
+      "title": "linuser",
+      "type": "runtime_user.terminal_password_credentials",
+      "base_type": "runtime_user",
+      "object_type": "definition_runtime_user",
+      "properties": {
+        "display_name": "linuser",
+        "password": "*****",
+        "user": "*****"
+      }
+    }
+  },
+  "target_groups": {
+    "target_group_016CMJOS6WXBA6WsqeUelXiMEJLg3nMCeBX": {
+      "unique_name": "target_group_016CMJOS6WXBA6WsqeUelXiMEJLg3nMCeBX",
+      "name": "CA HTTP UNIX",
+      "title": "CA HTTP UNIX",
+      "type": "generic.target_group",
+      "base_type": "target_group",
+      "version": "1.0.0",
+      "targets": [
+        {
+          "data_target_type": "web-service.endpoint",
+          "view_target_type": "web-service.endpoint",
+          "include_all_targets": false,
+          "selected_target_ids": [
+            "definition_target_015EJ2J0XVS0B3GBmrUsI6ocfwuqcOkPyFd"
+          ]
+        },
+        {
+          "data_target_type": "terminal.unix_linux_endpoint",
+          "view_target_type": "terminal.unix_linux_endpoint",
+          "include_all_targets": false,
+          "selected_target_ids": [
+            "definition_target_015NSGJ0I5FZN7bUJu8WdQkluy9WVbYcuyW",
+            "definition_target_016CGE3FEVB7L3l2YvKKcix0pzFzB11JMvS"
+          ]
+        }
+      ],
+      "object_type": "target_group"
+    }
+  }
+}
